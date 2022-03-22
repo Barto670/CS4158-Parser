@@ -1,6 +1,6 @@
 %{
     /* definitions */
-    #include "parser.tab.h"
+    /*#include "parser.tab.h"*/
 %}
 
 /* \n {return EOL;}  */
@@ -16,12 +16,9 @@
 [Tt][Oo] { printf("VALID To Declaration\n"); }
 [xX]+ { printf("VALID Variable Declaration that can hold a digit of lenght %d\n", strlen(yytext)); }
 [0-9]+ { printf("VALID Number\n"); }
-(?:"+") { printf("VALID Add\n"); }
-(?:"-") { printf("VALID Subtract\n"); }
-(?:"/") { printf("VALID Divide\n"); }
-(?:"*") { printf("VALID Multiply\n"); }
-(?:"=") { printf("VALID Equals\n"); }
 (?:;) { printf("VALID Semi-colon\n"); }
+[.] { printf("VALID . (end of line)\n"); }
+["] { printf("VALID quotation mark \n"); }
 [a-zA-Z0-9-]+ { printf("VALID Variable Name\n"); }
 . {}
 
