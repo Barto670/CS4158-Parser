@@ -822,7 +822,7 @@ YY_RULE_SETUP
 case 15:
 YY_RULE_SETUP
 #line 23 "lexer.l"
-
+/* Whitespace */
 	YY_BREAK
 case 16:
 /* rule 16 can match eol */

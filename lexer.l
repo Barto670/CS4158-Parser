@@ -20,7 +20,7 @@
 [.] { printf(" [VALID . (end of line)] "); }
 ["] { printf(" [VALID quotation mark] "); }
 [a-zA-Z0-9-]+ { printf(" [VALID Variable Name] "); }
-[ ]
+[ ] /* Whitespace */
 [\n]  { printf(" [VALID New line]\n"); }
 . {printf("INVALID");}
 
