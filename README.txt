@@ -1,3 +1,5 @@
+**Program accepts only 'BEGINING' instead of 'BEGINNING'**
+
 Before any of the below I installed flex and bison and a c compiler
 
 1) Open any kind of terminal (I used Windows 10 Command Prompt)

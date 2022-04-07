@@ -6,7 +6,7 @@
 /* \n {return EOL;}  */
 %%
 
-[Bb][Ee][Gg][Ii][Nn][Ii][Nn][Gg] { printf(" [VALID Body Declaration] "); }
+[Bb][Ee][Gg][Ii][Nn][Ii][Nn][Gg] { printf(" [VALID Begining Declaration] "); }
 [Bb][Oo][Dd][Yy] { printf(" [VALID Body Declaration] "); }
 [Mm][Oo][Vv][Ee] { printf(" [VALID Move Declaration] "); }
 [Ii][Nn][Pp][Uu][Tt] { printf(" [VALID Input Declaration] "); }
