@@ -37,7 +37,7 @@ line:
 |   ADD VARNAME TO VARNAME DOT EOL {printf("String = %d\n", $2);}
 |   MOVE NUMBER TO VARNAME DOT EOL {printf("String = %d\n", $2);}
 |   INPUT VARNAME DOT EOL {printf("String = %d\n", $2);}
-|   DECLARATION VARNAME DOT EOL {printf($2);}
+|   DECLARATION VARNAME DOT EOL {printf("String of name: ");printf($2); printf("has lenght: %d ", $1); }
 |   EOL
 ;
 

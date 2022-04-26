@@ -1425,7 +1425,7 @@ yyreduce:
   case 12:
 /* Line 1792 of yacc.c  */
 #line 40 "parser.y"
-    {printf((yyvsp[(2) - (4)].str));}
+    {printf("String of name: ");printf((yyvsp[(2) - (4)].str)); printf("has lenght: %d ", (yyvsp[(1) - (4)].num)); }
     break;
 
   case 16:
