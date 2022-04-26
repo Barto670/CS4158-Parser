@@ -69,9 +69,14 @@
     #include <stdio.h>
 
 
+    char value[10] = {};
+    int size[10] = {};
+    char *name[10] = {};
+    int i = 0;
+
 
 /* Line 371 of yacc.c  */
-#line 75 "parser.tab.c"
+#line 80 "parser.tab.c"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -130,7 +135,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 8 "parser.y"
+#line 13 "parser.y"
 
     int num;
     char sym;
@@ -138,7 +143,7 @@ typedef union YYSTYPE
 
 
 /* Line 387 of yacc.c  */
-#line 142 "parser.tab.c"
+#line 147 "parser.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -166,7 +171,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 170 "parser.tab.c"
+#line 175 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -461,8 +466,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    27,    27,    28,    32,    33,    34,    35,    36,    37,
-      38,    39,    40,    41,    45,    46,    50,    51,    54
+       0,    32,    32,    33,    37,    38,    39,    40,    41,    42,
+      43,    44,    45,    46,    50,    51,    55,    56,    59
 };
 #endif
 
@@ -1376,79 +1381,79 @@ yyreduce:
     {
         case 4:
 /* Line 1792 of yacc.c  */
-#line 32 "parser.y"
+#line 37 "parser.y"
     {printf("%d\n", (yyvsp[(1) - (3)].num));}
     break;
 
   case 5:
 /* Line 1792 of yacc.c  */
-#line 33 "parser.y"
+#line 38 "parser.y"
     {printf("Begining");}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 34 "parser.y"
+#line 39 "parser.y"
     {printf("BODY");}
     break;
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 35 "parser.y"
+#line 40 "parser.y"
     {printf("END");}
     break;
 
   case 8:
 /* Line 1792 of yacc.c  */
-#line 36 "parser.y"
+#line 41 "parser.y"
     {printf("String = %d\n", (yyvsp[(2) - (4)].str));}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 37 "parser.y"
+#line 42 "parser.y"
     {printf("String = %d\n", (yyvsp[(2) - (6)].str));}
     break;
 
   case 10:
 /* Line 1792 of yacc.c  */
-#line 38 "parser.y"
+#line 43 "parser.y"
     {printf("String = %d\n", (yyvsp[(2) - (6)].num));}
     break;
 
   case 11:
 /* Line 1792 of yacc.c  */
-#line 39 "parser.y"
+#line 44 "parser.y"
     {printf("String = %d\n", (yyvsp[(2) - (4)].str));}
     break;
 
   case 12:
 /* Line 1792 of yacc.c  */
-#line 40 "parser.y"
-    {printf("String of name: ");printf((yyvsp[(2) - (4)].str)); printf("has lenght: %d ", (yyvsp[(1) - (4)].num)); }
+#line 45 "parser.y"
+    {printf("String of name: ");printf((yyvsp[(2) - (4)].str));printf("has lenght: %d", (yyvsp[(1) - (4)].num)); }
     break;
 
   case 16:
 /* Line 1792 of yacc.c  */
-#line 50 "parser.y"
+#line 55 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (1)].str);}
     break;
 
   case 17:
 /* Line 1792 of yacc.c  */
-#line 51 "parser.y"
+#line 56 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (3)].str);}
     break;
 
   case 18:
 /* Line 1792 of yacc.c  */
-#line 54 "parser.y"
+#line 59 "parser.y"
     { (yyval.num) = (yyvsp[(1) - (1)].num);}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1452 "parser.tab.c"
+#line 1457 "parser.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1680,7 +1685,7 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 59 "parser.y"
+#line 64 "parser.y"
 
 
 
