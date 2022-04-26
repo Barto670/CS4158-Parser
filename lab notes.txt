@@ -1,0 +1,72 @@
+****LEXER****
+
+cc -o testint lex.yy.c -ll
+
+-ll for no main function
+
+
+*Integer*
+-format the integer so that 0000090 is 90
+
+
+*String*
+-single line string is okay
+-more than 2 quotes is invalid string
+-
+
+\"[^\n]\"
+\"[^"]\"
+
+
+*Caseless*
+
+#option caseless
+
+
+. at the end to capture invalid
+
+
+
+
+****PARSER****
+
+-make c files
+
+bison -d myint.y   //-d generates header files
+
+cc -o testint lex.yy.c -ll
+
+.test < test.txt
+
+-define tokens in lexer
+ e.g. [0-9]+ (yyval = atoi(yytext); return INTEGER;)
+
+
+
+-define tokens and errors and include lexer file
+
+%{
+#include <stdio.h>
+int yylex (void);
+void yyerror(const char *s);
+%}
+
+%token INTEGER
+
+%%
+
+integers: integers INTEGER | INTEGER;             // one or a sequence of integers
+
+
+%%
+
+void yyerror(char const *s) {
+	fprint(stderr,"Error %s", s);
+}
+
+
+-hashmap for moving ints into variables
+-then check when "move" is seen if we can move it to that variable
+
+
+
