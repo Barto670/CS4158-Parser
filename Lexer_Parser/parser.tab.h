@@ -48,21 +48,19 @@ extern int yydebug;
    enum yytokentype {
      NUMBER = 258,
      DECLARATION = 259,
-     PLUS = 260,
-     EQUALS = 261,
-     EOL = 262,
-     DOT = 263,
-     SEMICOLON = 264,
-     BODY = 265,
-     BEGINING = 266,
-     END = 267,
-     INPUT = 268,
-     MOVE = 269,
-     AND = 270,
-     TO = 271,
-     PRINT = 272,
-     STRING = 273,
-     VARNAME = 274
+     EOL = 260,
+     DOT = 261,
+     SEMICOLON = 262,
+     BODY = 263,
+     BEGINING = 264,
+     END = 265,
+     INPUT = 266,
+     MOVE = 267,
+     ADD = 268,
+     TO = 269,
+     PRINT = 270,
+     VARNAME = 271,
+     STRING = 272
    };
 #endif
 
@@ -71,14 +69,15 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2058 of yacc.c  */
-#line 5 "parser.y"
+#line 6 "parser.y"
 
     int num;
     char sym;
+    char *str;
 
 
 /* Line 2058 of yacc.c  */
-#line 82 "parser.tab.h"
+#line 81 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

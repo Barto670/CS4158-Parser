@@ -7,6 +7,7 @@
     #include <stdio.h>
     #include <string.h>
     
+    
 %}
 
 /* \n {return EOL;}  */
@@ -17,7 +18,7 @@
 "end" { return END; }
 "move" { return MOVE; }
 "input" { return INPUT; }
-"and" { return AND; }
+"add" { return ADD; }
 "print" { return PRINT; }
 "to" { return TO; }
 [xX]+ { yylval.num = strlen(yytext); return DECLARATION; }
@@ -25,11 +26,9 @@
 [1-9]+ { yylval.num = atoi(yytext); return NUMBER; }
 (?:;) { return SEMICOLON; }
 [.] { return DOT; }
-["][a-zA-Z0-9]+["] { yylval.sym = yytext; return STRING; }
-[a-zA-Z0-9-]+ { yylval.sym = yytext; return VARNAME;}
+["][a-zA-Z0-9]+["] { yylval.str = strdup(yytext); return STRING; }
+[a-zA-Z0-9-]+ { yylval.str = strdup(yytext); return VARNAME;}
 [ ] /* Whitespace */
-"+"  { return PLUS; }
-"=" { return EQUALS; }
 [\n]  { return EOL; }
 . {printf("INVALID");}
 

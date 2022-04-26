@@ -29,3 +29,8 @@ gcc lex.yy.c
 ./a
 
 
+
+
+
+
+// |   numexp PLUS numexp { $$ = $1 + $3; }
