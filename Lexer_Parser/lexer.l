@@ -1,5 +1,7 @@
 
 %option caseless
+%option noyywrap
+
 %{
     
     /* definitions */
@@ -10,7 +12,7 @@
     
 %}
 
-/* \n {return EOL;}  */
+
 %%
 
 "begining" { return BEGINING; }
@@ -34,8 +36,6 @@
 
 %%
 
-
-yywrap() {}
 
 
 // int main(){
