@@ -20,10 +20,10 @@
 "print" { printf(" [VALID Print Declaration] "); }
 "to" { printf(" [VALID To Declaration] "); }
 [xX]+ { printf(" [VALID Variable Declaration that can hold a digit of lenght %d] ", strlen(yytext)); }
-[0-9]+ { printf(" [VALID Number] "); }
+[0]+[1-9]+ { printf(" [VALID Number = %d ] ", atoi(yytext)); }
 (?:;) { printf(" [VALID Semi-colon] "); }
 [.] { printf(" [VALID . (end of line)] "); }
-["] { printf(" [VALID quotation mark] "); }
+["][a-zA-Z0-9]+["] { printf(" [VALID String] "); }
 [a-zA-Z0-9-]+ { printf(" [VALID Variable Name] "); }
 [ ] /* Whitespace */
 [\n]  { printf(" [VALID New line]\n"); }
