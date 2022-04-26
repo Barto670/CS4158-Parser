@@ -1,0 +1,29 @@
+//with parser and lexer//
+
+1)
+flex lexer.l   
+
+2)
+bison -d -t parser.y  
+
+3)
+gcc lex.yy.c parser.tab.c
+
+4)
+./a
+
+
+
+
+
+//only lexer//
+
+1)
+flex lexer.l   
+
+
+2)
+gcc lex.yy.c
+
+3)
+./a
