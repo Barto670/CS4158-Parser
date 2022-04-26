@@ -489,7 +489,7 @@ char *yytext;
 #line 4 "lexer.l"
     
     /* definitions */
-    /*#include "parser.tab.h"*/
+    #include "parser.tab.h"
 
     
 #line 495 "lex.yy.c"
@@ -1874,11 +1874,11 @@ void yyfree (void * ptr )
 yywrap() {}
 
 
-int main(){
-    yylex();
+// int main(){
+//     yylex();
 
-    return 0;
-}
+//     return 0;
+// }
 
 
 

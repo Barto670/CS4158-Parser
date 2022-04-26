@@ -3,7 +3,7 @@
 %{
     
     /* definitions */
-    /*#include "parser.tab.h"*/
+    #include "parser.tab.h"
 
     
 %}
@@ -35,10 +35,10 @@
 yywrap() {}
 
 
-int main(){
-    yylex();
+// int main(){
+//     yylex();
 
-    return 0;
-}
+//     return 0;
+// }
 
 

@@ -65,10 +65,12 @@
 /* Line 371 of yacc.c  */
 #line 1 "parser.y"
 
-    /* definitions */
+    #include <stdio.h>
+    int yylex (void);
+    
 
 /* Line 371 of yacc.c  */
-#line 72 "parser.tab.c"
+#line 74 "parser.tab.c"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -104,28 +106,13 @@ extern int yydebug;
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     EOL = 258,
-     NUMBER = 259,
-     PLUS = 260,
-     MINUS = 261,
-     MULTIPLY = 262
+     INTEGER = 258
    };
 #endif
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-{
-/* Line 387 of yacc.c  */
-#line 5 "parser.y"
-
-    int num;
-    char sym;
-
-
-/* Line 387 of yacc.c  */
-#line 128 "parser.tab.c"
-} YYSTYPE;
+typedef int YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -152,7 +139,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 156 "parser.tab.c"
+#line 143 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -370,22 +357,22 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  4
+#define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   2
+#define YYLAST   3
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  8
+#define YYNTOKENS  4
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  3
+#define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  4
+#define YYNRULES  3
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  6
+#define YYNSTATES  5
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   262
+#define YYMAXUTOK   258
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -418,8 +405,7 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7
+       2,     2,     2,     2,     2,     2,     1,     2,     3
 };
 
 #if YYDEBUG
@@ -427,19 +413,19 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     4,     7
+       0,     0,     3,     6
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-       9,     0,    -1,    -1,    10,     9,    -1,     3,    -1
+       5,     0,    -1,     5,     3,    -1,     3,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    17,    17,    18,    21
+       0,    12,    12,    12
 };
 #endif
 
@@ -448,8 +434,7 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "EOL", "NUMBER", "PLUS", "MINUS",
-  "MULTIPLY", "$accept", "input", "line", YY_NULL
+  "$end", "error", "$undefined", "INTEGER", "$accept", "integers", YY_NULL
 };
 #endif
 
@@ -458,20 +443,20 @@ static const char *const yytname[] =
    token YYLEX-NUM.  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261,   262
+       0,   256,   257,   258
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,     8,     9,     9,    10
+       0,     4,     5,     5
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     2,     1
+       0,     2,     2,     1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
@@ -479,27 +464,27 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     4,     0,     2,     1,     3
+       0,     3,     0,     1,     2
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3
+      -1,     2
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -4
+#define YYPACT_NINF -3
 static const yytype_int8 yypact[] =
 {
-      -3,    -4,     1,    -3,    -4,    -4
+      -2,    -3,     0,    -3,    -3
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -4,    -1,    -4
+      -3,    -3
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -508,25 +493,25 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       1,     4,     5
+       3,     1,     0,     4
 };
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-4)))
+  (!!((Yystate) == (-3)))
 
 #define yytable_value_is_error(Yytable_value) \
   YYID (0)
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       3,     0,     3
+       0,     3,    -1,     3
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,     9,    10,     0,     9
+       0,     3,     5,     0,     3
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1328,7 +1313,7 @@ yyreduce:
     {
       
 /* Line 1792 of yacc.c  */
-#line 1332 "parser.tab.c"
+#line 1317 "parser.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1560,7 +1545,7 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 23 "parser.y"
+#line 14 "parser.y"
 
 
 
@@ -1571,7 +1556,7 @@ int main() {
 }
 
 
-yyerror(char* s){
+void yyerror(char* s){
     printf("ERROR: %s\n", s);
 
     return 0;

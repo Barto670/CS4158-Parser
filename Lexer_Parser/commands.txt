@@ -27,3 +27,5 @@ gcc lex.yy.c
 
 3)
 ./a
+
+

@@ -1,20 +1,15 @@
 %{
-    /* definitions */
+    #include <stdio.h>
+    int yylex (void);
+    void yyerror(const char *s);
 %}
 
-%union{
-    int num;
-    char sym;
-}
-
-%token EOL
-%token<num> NUMBER
-%token PLUS MINUS MULTIPLY
+%token INTEGER
 
 %%
 /* rules  */
 
-input {};
+integers: integers INTEGER | INTEGER;             // one or a sequence of integers
 
 %%
 
@@ -26,7 +21,7 @@ int main() {
 }
 
 
-yyerror(char* s){
+void yyerror(char* s){
     printf("ERROR: %s\n", s);
 
     return 0;
