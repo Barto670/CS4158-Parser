@@ -30,7 +30,11 @@ gcc lex.yy.c
 
 
 
+bison -d parser.y; flex lexer.l; gcc -Wno-write-strings -o a lex.yy.c parser.tab.c;
 
+|   DECLARATION VARNAME DOT EOL {for (int i = 0; i < 5; ++i) {printf("%c, ", $2[i]);};}
+
+|   DECLARATION VARNAME DOT EOL {printf($2);}
 
 
 // |   numexp PLUS numexp { $$ = $1 + $3; }

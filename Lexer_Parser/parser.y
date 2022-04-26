@@ -1,6 +1,8 @@
 %{
     /* definitions  */
     #include <stdio.h>
+
+
 %}
 
 %union{
@@ -16,7 +18,7 @@
 %token<str> VARNAME STRING
 
 %type<num> numexp 
-%type<str> print
+%type<str> printcontent
 %type<str> strfiller
 
 %%
@@ -31,11 +33,11 @@ line:
 |   BEGINING DOT EOL {printf("Begining");}
 |   BODY DOT EOL {printf("BODY");}
 |   END DOT EOL {printf("END");}
-|   print DOT EOL {printf("String = %d\n", $1);}
+|   PRINT printcontent DOT EOL {printf("String = %d\n", $2);}
 |   ADD VARNAME TO VARNAME DOT EOL {printf("String = %d\n", $2);}
 |   MOVE NUMBER TO VARNAME DOT EOL {printf("String = %d\n", $2);}
 |   INPUT VARNAME DOT EOL {printf("String = %d\n", $2);}
-|   DECLARATION VARNAME DOT EOL {printf("Lenght of variable %d = %d\n", $2, $1);}
+|   DECLARATION VARNAME DOT EOL {printf($2);}
 |   EOL
 ;
 
@@ -44,9 +46,9 @@ strfiller:
 |   STRING
 ;
 
-print:
-    PRINT strfiller { $$ = $2;} 
-|   PRINT strfiller SEMICOLON strfiller { $$ = $2;}
+printcontent:
+    strfiller { $$ = $1;} 
+|   printcontent SEMICOLON printcontent { $$ = $1;}
 
 numexp:
     NUMBER { $$ = $1;} 
