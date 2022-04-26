@@ -20,13 +20,16 @@
 "print" { printf(" [VALID Print Declaration] "); }
 "to" { printf(" [VALID To Declaration] "); }
 [xX]+ { printf(" [VALID Variable Declaration that can hold a digit of lenght %d] ", strlen(yytext)); }
-[0]+[1-9]+ { printf(" [VALID Number = %d ] ", atoi(yytext)); }
+[0]+[1-9]+ { yylval.num = atoi(yytext); return NUMBER; }
+[1-9]+ { yylval.num = atoi(yytext); return NUMBER; }
 (?:;) { printf(" [VALID Semi-colon] "); }
 [.] { printf(" [VALID . (end of line)] "); }
 ["][a-zA-Z0-9]+["] { printf(" [VALID String] "); }
 [a-zA-Z0-9-]+ { printf(" [VALID Variable Name] "); }
 [ ] /* Whitespace */
-[\n]  { printf(" [VALID New line]\n"); }
+"+"  { return PLUS; }
+"=" { return EQUALS; }
+[\n]  { return EOL; }
 . {printf("INVALID");}
 
 %%

@@ -1,15 +1,33 @@
 %{
-    #include <stdio.h>
-    int yylex (void);
-    void yyerror(const char *s);
+/* definitions  */
 %}
 
-%token INTEGER
+%union{
+    int num;
+    char sym;
+}
+
+%token<num> NUMBER
+%token EOL
+%type<num> exp
+%token PLUS EQUALS
 
 %%
 /* rules  */
 
-integers: integers INTEGER | INTEGER;             // one or a sequence of integers
+input:
+|   line input
+;
+
+line: 
+    exp EOL {printf("%d\n", $1);}
+|       EOL
+;
+
+exp:
+    NUMBER { $$ = $1;} 
+|   exp PLUS exp { $$ = $1 + $3; }
+;
 
 %%
 
