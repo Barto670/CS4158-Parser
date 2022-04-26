@@ -7,10 +7,14 @@
     char sym;
 }
 
-%token<num> NUMBER
-%token EOL
-%type<num> exp
-%token PLUS EQUALS
+%token<num> NUMBER DECLARATION
+%token PLUS EQUALS  
+%token EOL DOT SEMICOLON
+%token BODY BEGINING END
+%token INPUT MOVE AND TO PRINT  STRING
+%token<sym> VARNAME
+
+%type<num> numexp 
 
 %%
 /* rules  */
@@ -20,13 +24,16 @@ input:
 ;
 
 line: 
-    exp EOL {printf("%d\n", $1);}
-|       EOL
+    numexp DOT EOL  {printf("%d\n", $1);}
+|   DECLARATION VARNAME DOT EOL {printf("Lenght of variable %d = %d\n", $2, $1);}
+|   VARNAME DOT EOL {printf("variable %d\n", $1);}
+|   EOL
 ;
 
-exp:
+
+numexp:
     NUMBER { $$ = $1;} 
-|   exp PLUS exp { $$ = $1 + $3; }
+|   numexp PLUS numexp { $$ = $1 + $3; }
 ;
 
 %%

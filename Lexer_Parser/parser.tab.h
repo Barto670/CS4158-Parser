@@ -47,9 +47,22 @@ extern int yydebug;
       know about them.  */
    enum yytokentype {
      NUMBER = 258,
-     EOL = 259,
+     DECLARATION = 259,
      PLUS = 260,
-     EQUALS = 261
+     EQUALS = 261,
+     EOL = 262,
+     DOT = 263,
+     SEMICOLON = 264,
+     BODY = 265,
+     BEGINING = 266,
+     END = 267,
+     INPUT = 268,
+     MOVE = 269,
+     AND = 270,
+     TO = 271,
+     PRINT = 272,
+     STRING = 273,
+     VARNAME = 274
    };
 #endif
 
@@ -65,7 +78,7 @@ typedef union YYSTYPE
 
 
 /* Line 2058 of yacc.c  */
-#line 69 "parser.tab.h"
+#line 82 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

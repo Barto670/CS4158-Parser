@@ -365,9 +365,9 @@ static const flex_int16_t yy_accept[57] =
         0,    0,   22,   20,   19,   16,   20,   17,   15,   13,
        15,   11,   12,   18,   15,   15,   15,   15,   15,   15,
        15,    9,    0,   15,   15,   10,   11,   15,   15,   15,
-       15,   15,   15,   15,    8,    9,   14,    5,   15,   15,
-        6,   15,   15,   15,   15,    2,   15,    3,   15,   15,
-        4,    7,   15,   15,    1,    0
+       15,   15,   15,   15,    8,    9,   14,    6,   15,   15,
+        3,   15,   15,   15,   15,    2,   15,    4,   15,   15,
+        5,    7,   15,   15,    1,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -492,11 +492,12 @@ char *yytext;
     
     /* definitions */
     #include "parser.tab.h"
-
+    #include <stdio.h>
+    #include <string.h>
     
-#line 497 "lex.yy.c"
+#line 498 "lex.yy.c"
 /* \n {return EOL;}  */
-#line 499 "lex.yy.c"
+#line 500 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -713,10 +714,10 @@ YY_DECL
 		}
 
 	{
-#line 12 "lexer.l"
+#line 13 "lexer.l"
 
 
-#line 719 "lex.yy.c"
+#line 720 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -775,111 +776,111 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 14 "lexer.l"
-{ printf(" [VALID Begining Declaration] "); }
+#line 15 "lexer.l"
+{ return BEGINING; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 15 "lexer.l"
-{ printf(" [VALID Body Declaration] "); }
+#line 16 "lexer.l"
+{ return BODY; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 16 "lexer.l"
-{ printf(" [VALID Move Declaration] "); }
+#line 17 "lexer.l"
+{ return END; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 17 "lexer.l"
-{ printf(" [VALID Input Declaration] "); }
+#line 18 "lexer.l"
+{ return MOVE; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 18 "lexer.l"
-{ printf(" [VALID Add Declaration] "); }
+#line 19 "lexer.l"
+{ return INPUT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 19 "lexer.l"
-{ printf(" [VALID End Declaration] "); }
+#line 20 "lexer.l"
+{ return AND; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 20 "lexer.l"
-{ printf(" [VALID Print Declaration] "); }
+#line 21 "lexer.l"
+{ return PRINT; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 21 "lexer.l"
-{ printf(" [VALID To Declaration] "); }
+#line 22 "lexer.l"
+{ return TO; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 22 "lexer.l"
-{ printf(" [VALID Variable Declaration that can hold a digit of lenght %d] ", strlen(yytext)); }
+#line 23 "lexer.l"
+{ yylval.num = strlen(yytext); return DECLARATION; }
 	YY_BREAK
 case 10:
-YY_RULE_SETUP
-#line 23 "lexer.l"
-{ yylval.num = atoi(yytext); return NUMBER; }
-	YY_BREAK
-case 11:
 YY_RULE_SETUP
 #line 24 "lexer.l"
 { yylval.num = atoi(yytext); return NUMBER; }
 	YY_BREAK
-case 12:
+case 11:
 YY_RULE_SETUP
 #line 25 "lexer.l"
-{ printf(" [VALID Semi-colon] "); }
+{ yylval.num = atoi(yytext); return NUMBER; }
+	YY_BREAK
+case 12:
+YY_RULE_SETUP
+#line 26 "lexer.l"
+{ return SEMICOLON; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 26 "lexer.l"
-{ printf(" [VALID . (end of line)] "); }
+#line 27 "lexer.l"
+{ return DOT; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 27 "lexer.l"
-{ printf(" [VALID String] "); }
+#line 28 "lexer.l"
+{ yylval.sym = yytext; return STRING; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 28 "lexer.l"
-{ printf(" [VALID Variable Name] "); }
+#line 29 "lexer.l"
+{ yylval.sym = yytext; return VARNAME;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 29 "lexer.l"
+#line 30 "lexer.l"
 /* Whitespace */
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 30 "lexer.l"
+#line 31 "lexer.l"
 { return PLUS; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 31 "lexer.l"
+#line 32 "lexer.l"
 { return EQUALS; }
 	YY_BREAK
 case 19:
 /* rule 19 can match eol */
 YY_RULE_SETUP
-#line 32 "lexer.l"
+#line 33 "lexer.l"
 { return EOL; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 33 "lexer.l"
+#line 34 "lexer.l"
 {printf("INVALID");}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 35 "lexer.l"
+#line 36 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 882 "lex.yy.c"
+#line 883 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1884,7 +1885,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 35 "lexer.l"
+#line 36 "lexer.l"
 
 
 

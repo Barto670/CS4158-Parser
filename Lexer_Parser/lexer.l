@@ -4,28 +4,29 @@
     
     /* definitions */
     #include "parser.tab.h"
-
+    #include <stdio.h>
+    #include <string.h>
     
 %}
 
 /* \n {return EOL;}  */
 %%
 
-"begining" { printf(" [VALID Begining Declaration] "); }
-"body" { printf(" [VALID Body Declaration] "); }
-"move" { printf(" [VALID Move Declaration] "); }
-"input" { printf(" [VALID Input Declaration] "); }
-"and" { printf(" [VALID Add Declaration] "); }
-"end" { printf(" [VALID End Declaration] "); }
-"print" { printf(" [VALID Print Declaration] "); }
-"to" { printf(" [VALID To Declaration] "); }
-[xX]+ { printf(" [VALID Variable Declaration that can hold a digit of lenght %d] ", strlen(yytext)); }
+"begining" { return BEGINING; }
+"body" { return BODY; }
+"end" { return END; }
+"move" { return MOVE; }
+"input" { return INPUT; }
+"and" { return AND; }
+"print" { return PRINT; }
+"to" { return TO; }
+[xX]+ { yylval.num = strlen(yytext); return DECLARATION; }
 [0]+[1-9]+ { yylval.num = atoi(yytext); return NUMBER; }
 [1-9]+ { yylval.num = atoi(yytext); return NUMBER; }
-(?:;) { printf(" [VALID Semi-colon] "); }
-[.] { printf(" [VALID . (end of line)] "); }
-["][a-zA-Z0-9]+["] { printf(" [VALID String] "); }
-[a-zA-Z0-9-]+ { printf(" [VALID Variable Name] "); }
+(?:;) { return SEMICOLON; }
+[.] { return DOT; }
+["][a-zA-Z0-9]+["] { yylval.sym = yytext; return STRING; }
+[a-zA-Z0-9-]+ { yylval.sym = yytext; return VARNAME;}
 [ ] /* Whitespace */
 "+"  { return PLUS; }
 "=" { return EQUALS; }
