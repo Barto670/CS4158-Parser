@@ -1,19 +1,24 @@
+
+%option caseless
 %{
+    
     /* definitions */
     /*#include "parser.tab.h"*/
+
+    
 %}
 
 /* \n {return EOL;}  */
 %%
 
-[Bb][Ee][Gg][Ii][Nn][Ii][Nn][Gg] { printf(" [VALID Begining Declaration] "); }
-[Bb][Oo][Dd][Yy] { printf(" [VALID Body Declaration] "); }
-[Mm][Oo][Vv][Ee] { printf(" [VALID Move Declaration] "); }
-[Ii][Nn][Pp][Uu][Tt] { printf(" [VALID Input Declaration] "); }
-[Aa][Dd][Dd] { printf(" [VALID Add Declaration] "); }
-[Ee][Nn][Dd] { printf(" [VALID End Declaration] "); }
-[Pp][Rr][Ii][Nn][Tt] { printf(" [VALID Print Declaration] "); }
-[Tt][Oo] { printf(" [VALID To Declaration] "); }
+"begining" { printf(" [VALID Begining Declaration] "); }
+"body" { printf(" [VALID Body Declaration] "); }
+"move" { printf(" [VALID Move Declaration] "); }
+"input" { printf(" [VALID Input Declaration] "); }
+"and" { printf(" [VALID Add Declaration] "); }
+"end" { printf(" [VALID End Declaration] "); }
+"print" { printf(" [VALID Print Declaration] "); }
+"to" { printf(" [VALID To Declaration] "); }
 [xX]+ { printf(" [VALID Variable Declaration that can hold a digit of lenght %d] ", strlen(yytext)); }
 [0-9]+ { printf(" [VALID Number] "); }
 (?:;) { printf(" [VALID Semi-colon] "); }
