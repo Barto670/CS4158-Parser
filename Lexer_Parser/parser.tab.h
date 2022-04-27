@@ -51,16 +51,17 @@ extern int yydebug;
      EOL = 260,
      DOT = 261,
      SEMICOLON = 262,
-     BODY = 263,
-     BEGINING = 264,
-     END = 265,
-     INPUT = 266,
-     MOVE = 267,
-     ADD = 268,
-     TO = 269,
-     PRINT = 270,
-     VARNAME = 271,
-     STRING = 272
+     WHITESPACE = 263,
+     BODY = 264,
+     BEGINING = 265,
+     END = 266,
+     INPUT = 267,
+     MOVE = 268,
+     ADD = 269,
+     TO = 270,
+     PRINT = 271,
+     VARNAME = 272,
+     STRING = 273
    };
 #endif
 
@@ -69,7 +70,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2058 of yacc.c  */
-#line 13 "parser.y"
+#line 28 "parser.y"
 
     int num;
     char sym;
@@ -77,7 +78,7 @@ typedef union YYSTYPE
 
 
 /* Line 2058 of yacc.c  */
-#line 81 "parser.tab.h"
+#line 82 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

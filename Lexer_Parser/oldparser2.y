@@ -5,9 +5,9 @@
     #include <stdlib.h>
 
 
-    void insertVal(int value, int posi);
+    void insertVal(char value[], int posi);
     int search(char name[]);
-    void insert(char name[], int size, int value);
+    void insert(char name[], char size[], char value[]);
     void printTab();
 
     int ptr = 0;
@@ -16,8 +16,8 @@
 
     struct symtab{
         char name[100];
-        int size;
-        int value;
+        char size[100]; // 1 is int, 2 is float
+        char value[100];
     };
 
     struct symtab tab[100];
@@ -37,6 +37,7 @@
 %token INPUT MOVE ADD TO PRINT 
 %token<str> VARNAME STRING
 
+%type<num> numexp 
 %type<str> printcontent
 %type<str> strfiller
 %type<str> variables
@@ -71,7 +72,7 @@ vardefs :
 	    flag = search($3);
 
 		if(flag == -1){
-			insert($3, $1, 0);
+			insert($3, "40" , "0");
 		}else{
 			t = "Identifier already defined - ";
             printf(t);
@@ -93,26 +94,26 @@ bodydef:  | bodycontent bodydef
 ;
 
 bodycontent: 
+|   numexp DOT EOL  {printf("%d\n", $1);}
 |   PRINT WHITESPACE printcontent DOT EOL {printf("String = %d\n", $3);}
 |   ADD WHITESPACE VARNAME WHITESPACE TO WHITESPACE VARNAME DOT EOL {printf("String = %d\n", $3);}
-|   ADD WHITESPACE NUMBER WHITESPACE TO WHITESPACE VARNAME DOT EOL {printf("String = %d\n", $3);}
 |   MOVE WHITESPACE NUMBER WHITESPACE TO WHITESPACE VARNAME DOT EOL {printf("String = %d\n", $3);}
-|   MOVE WHITESPACE VARNAME WHITESPACE TO WHITESPACE VARNAME DOT EOL {printf("String = %d\n", $3);}
 |   INPUT WHITESPACE VARNAME DOT EOL {printf("String = %d\n", $3);}
 |   EOL
 ;
 
 strfiller:
-    VARNAME { 
-        printf($1);
-        search($1);
-    }
+    VARNAME
 |   STRING
 ;
 
 printcontent:
     strfiller { $$ = $1;} 
 |   printcontent SEMICOLON printcontent { $$ = $1;}
+
+numexp:
+    NUMBER { $$ = $1;} 
+;
 
 
 
@@ -143,12 +144,11 @@ int search(char name[]){
 
 }
 
-void insert(char name[], int size, int value){
+void insert(char name[], char size[], char value[]){
 
 	strcpy(tab[ptr].name, name);
-
-    tab[ptr].value = value;
-    tab[ptr].size = size;
+    strcpy(tab[ptr].size, size);
+	strcpy(tab[ptr].value, value);
 	
 
 	ptr++;
@@ -157,7 +157,7 @@ void insert(char name[], int size, int value){
 
 }
 
-void insertVal(int value, int posi){
+void insertVal(char value[], int posi){
 
 	strcpy(tab[posi].value, value);
 
@@ -171,7 +171,7 @@ void printTab(){
 
 	for(i = 0; i < ptr; i++){
 
-	    printf("Name - %s, value - %d, size - %d  \n", tab[i].name, tab[i].value, tab[i].size);
+	    printf("Name - %s, value - %d, size - %d sadsada \n", tab[i].name, tab[i].value, tab[i].size);
 	}
 }
 

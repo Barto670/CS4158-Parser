@@ -8,6 +8,7 @@
     #include "parser.tab.h"
     #include <stdio.h>
     #include <string.h>
+
     
     
 %}
@@ -30,18 +31,10 @@
 [.] { return DOT; }
 ["][a-zA-Z0-9]+["] { yylval.str = strdup(yytext); return STRING; }
 [a-zA-Z0-9-]+ { yylval.str = strdup(yytext); return VARNAME;}
-[ ] /* Whitespace */
+[ ] { return WHITESPACE;} /* Whitespace */
 [\n]  { return EOL; }
 . {printf("INVALID");}
 
 %%
-
-
-
-// int main(){
-//     yylex();
-
-//     return 0;
-// }
 
 

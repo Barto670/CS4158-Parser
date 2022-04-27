@@ -49,3 +49,48 @@ bison -d parser.y; flex lexer.l; gcc -Wno-write-strings -o a lex.yy.c parser.tab
 
 
 /* %option c++ /*
+
+
+
+
+
+input:
+|   line input
+;
+
+line: 
+    numexp DOT EOL  {printf("%d\n", $1);}
+|   BEGINING DOT EOL {printf("Begining");}
+|   BODY DOT EOL {printf("BODY");}
+|   END DOT EOL {printf("END");}
+|   PRINT printcontent DOT EOL {printf("String = %d\n", $2);}
+|   ADD VARNAME TO VARNAME DOT EOL {printf("String = %d\n", $2);}
+|   MOVE NUMBER TO VARNAME DOT EOL {printf("String = %d\n", $2);}
+|   INPUT VARNAME DOT EOL {printf("String = %d\n", $2);}
+|   DECLARATION VARNAME DOT EOL {printf("String of name: ");printf($2);printf("has lenght: %d", $1);}
+|   DECLARATION DECLARATION DOT EOL { yyerror("    Variable name cannot be only 'x' or 'X'")}
+|   EOL
+;
+
+strfiller:
+    VARNAME
+|   STRING
+;
+
+printcontent:
+    strfiller { $$ = $1;} 
+|   printcontent SEMICOLON printcontent { $$ = $1;}
+
+numexp:
+    NUMBER { $$ = $1;} 
+;
+
+
+
+
+
+
+    char value[100] = {};
+    int size[100] = {};
+    char *name[100] = {};
+    int i = 0;
