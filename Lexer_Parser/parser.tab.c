@@ -75,6 +75,9 @@
     int search(char name[]);
     void insert(char name[], int size, int value);
     void printTab();
+    int intLen(int x);
+    void yyerror(char* s);
+    
 
     int ptr = 0;
 
@@ -91,7 +94,7 @@
 
 
 /* Line 371 of yacc.c  */
-#line 95 "parser.tab.c"
+#line 98 "parser.tab.c"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -151,7 +154,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 28 "parser.y"
+#line 31 "parser.y"
 
     int num;
     char sym;
@@ -159,7 +162,7 @@ typedef union YYSTYPE
 
 
 /* Line 387 of yacc.c  */
-#line 163 "parser.tab.c"
+#line 166 "parser.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -187,7 +190,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 191 "parser.tab.c"
+#line 194 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -407,16 +410,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   74
+#define YYLAST   78
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  19
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  11
+#define YYNNTS  12
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  24
+#define YYNRULES  26
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  78
+#define YYNSTATES  82
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -465,7 +468,7 @@ static const yytype_uint8 yyprhs[] =
 {
        0,     0,     3,     9,    13,    14,    17,    23,    29,    31,
       35,    39,    40,    43,    44,    50,    60,    70,    80,    90,
-      96,    98,   100,   102,   104
+      96,    98,   100,   102,   104,   108,   110
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -480,16 +483,17 @@ static const yytype_int8 yyrhs[] =
       14,     8,     3,     8,    15,     8,    17,     6,     5,    -1,
       13,     8,     3,     8,    15,     8,    17,     6,     5,    -1,
       13,     8,    17,     8,    15,     8,    17,     6,     5,    -1,
-      12,     8,    17,     6,     5,    -1,     5,    -1,    17,    -1,
-      18,    -1,    28,    -1,    29,     7,    29,    -1
+      12,     8,    30,     6,     5,    -1,     5,    -1,    17,    -1,
+      18,    -1,    28,    -1,    29,     7,    29,    -1,    17,    -1,
+      30,     7,     8,    30,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_uint16 yyrline[] =
 {
-       0,    50,    50,    54,    57,    57,    62,    80,    81,    85,
-      89,    92,    92,    95,    96,    97,    98,    99,   100,   101,
-     102,   106,   110,   114,   115
+       0,    54,    54,    58,    61,    61,    66,    84,    85,    89,
+      93,    96,    96,    99,   100,   101,   138,   173,   208,   245,
+     246,   250,   266,   270,   271,   275,   295
 };
 #endif
 
@@ -502,7 +506,7 @@ static const char *const yytname[] =
   "SEMICOLON", "WHITESPACE", "BODY", "BEGINING", "END", "INPUT", "MOVE",
   "ADD", "TO", "PRINT", "VARNAME", "STRING", "$accept", "input",
   "begining", "variables", "vardefs", "body", "end", "bodydef",
-  "bodycontent", "strfiller", "printcontent", YY_NULL
+  "bodycontent", "strfiller", "printcontent", "inputcontent", YY_NULL
 };
 #endif
 
@@ -521,7 +525,7 @@ static const yytype_uint8 yyr1[] =
 {
        0,    19,    20,    21,    22,    22,    23,    23,    23,    24,
       25,    26,    26,    27,    27,    27,    27,    27,    27,    27,
-      27,    28,    28,    29,    29
+      27,    28,    28,    29,    29,    30,    30
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -529,7 +533,7 @@ static const yytype_uint8 yyr2[] =
 {
        0,     2,     5,     3,     0,     2,     5,     5,     1,     3,
        3,     0,     2,     0,     5,     9,     9,     9,     9,     5,
-       1,     1,     1,     1,     3
+       1,     1,     1,     1,     3,     1,     4
 };
 
 /* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
@@ -540,40 +544,42 @@ static const yytype_uint8 yydefact[] =
        0,     0,     0,     4,     0,     1,     0,     8,     0,     4,
        3,     0,     0,    11,     5,     0,     0,     0,    20,     0,
        0,     0,     0,     0,    11,     0,     0,     9,     0,     0,
-       0,     0,     0,     2,    12,     7,     6,     0,     0,     0,
-       0,     0,    21,    22,    23,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    10,    19,     0,     0,     0,     0,
-      14,    24,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    17,    18,    16,    15
+       0,     0,     0,     2,    12,     7,     6,    25,     0,     0,
+       0,     0,     0,    21,    22,    23,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    10,    19,     0,     0,
+       0,     0,     0,    14,    24,    26,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    17,    18,
+      16,    15
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3,     8,     9,    13,    33,    23,    24,    44,
-      45
+      -1,     2,     3,     8,     9,    13,    33,    23,    24,    45,
+      46,    38
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -16
+#define YYPACT_NINF -12
 static const yytype_int8 yypact[] =
 {
-      -8,     6,    11,     0,     8,   -16,    12,   -16,    13,     0,
-     -16,    -1,    17,     5,   -16,    18,    19,    21,   -16,    20,
-      22,    23,    24,    16,     5,    28,    29,   -16,    25,    -3,
-      -2,   -11,    30,   -16,   -16,   -16,   -16,    31,    27,    32,
-      33,    35,   -16,   -16,   -16,     2,    34,    39,    14,    36,
-      37,    38,    40,   -11,   -16,   -16,    41,    42,    46,    47,
-     -16,    49,    43,    44,    45,    48,    51,    52,    53,    57,
-      59,    61,    62,    63,   -16,   -16,   -16,   -16
+      -8,    14,    11,     0,    17,   -12,    15,   -12,    16,     0,
+     -12,    -1,    18,     5,   -12,    20,    21,    23,   -12,    22,
+      24,    25,    26,    27,     5,    30,    31,   -12,    12,    -3,
+      -2,   -11,    33,   -12,   -12,   -12,   -12,   -12,     2,    29,
+      32,    34,    35,   -12,   -12,   -12,     6,    36,    39,    37,
+      38,    40,    41,    42,    43,   -11,   -12,   -12,    12,    44,
+      46,    50,    51,   -12,    53,    54,    45,    47,    48,    49,
+      57,    61,    62,    63,    65,    66,    67,    68,   -12,   -12,
+     -12,   -12
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -16,   -16,   -16,    60,   -16,   -16,   -16,    50,   -16,   -16,
-     -15
+     -12,   -12,   -12,    69,   -12,   -12,   -12,     7,   -12,   -12,
+      -9,    -7
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -582,18 +588,18 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-      38,    40,     1,    15,     6,     7,    42,    43,    52,    53,
-      18,     5,     4,    10,    39,    41,    16,    19,    20,    21,
-      11,    22,    12,    17,    25,    26,    27,    32,    28,    56,
-      29,    30,    31,    35,    36,    48,    46,    47,    61,    54,
-      49,    50,    37,    51,    55,    60,     0,     0,     0,    62,
-      63,    57,    58,    59,    64,    65,    53,    70,    71,    72,
-      66,    67,    68,    73,    74,    69,    75,    76,    77,    14,
-       0,     0,     0,     0,    34
+      39,    41,     1,    15,     6,     7,    43,    44,    48,    49,
+      18,     5,    54,    55,    40,    42,    16,    19,    20,    21,
+       4,    22,    10,    11,    17,    12,    25,    26,    27,    37,
+      28,    34,    29,    30,    31,    35,    36,    50,    32,    47,
+      51,    56,    52,    53,    57,    58,    64,     0,    63,     0,
+       0,    65,    66,    59,    67,    60,    61,    62,    68,    69,
+      55,    49,    70,    74,    71,    72,    73,    75,    76,    77,
+      78,    79,    80,    81,     0,     0,     0,     0,    14
 };
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-16)))
+  (!!((Yystate) == (-12)))
 
 #define yytable_value_is_error(Yytable_value) \
   YYID (0)
@@ -601,13 +607,13 @@ static const yytype_uint8 yytable[] =
 static const yytype_int8 yycheck[] =
 {
        3,     3,    10,     4,     4,     5,    17,    18,     6,     7,
-       5,     0,     6,     5,    17,    17,    17,    12,    13,    14,
-       8,    16,     9,     6,     6,     6,     5,    11,     8,    15,
-       8,     8,     8,     5,     5,     8,     6,     6,    53,     5,
-       8,     8,    17,     8,     5,     5,    -1,    -1,    -1,     8,
-       8,    15,    15,    15,     8,     8,     7,     6,     6,     6,
-      17,    17,    17,     6,     5,    17,     5,     5,     5,     9,
-      -1,    -1,    -1,    -1,    24
+       5,     0,     6,     7,    17,    17,    17,    12,    13,    14,
+       6,    16,     5,     8,     6,     9,     6,     6,     5,    17,
+       8,    24,     8,     8,     8,     5,     5,     8,    11,     6,
+       8,     5,     8,     8,     5,     8,    55,    -1,     5,    -1,
+      -1,    58,     8,    15,     8,    15,    15,    15,     8,     8,
+       7,     7,    17,     6,    17,    17,    17,     6,     6,     6,
+       5,     5,     5,     5,    -1,    -1,    -1,    -1,     9
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -617,11 +623,12 @@ static const yytype_uint8 yystos[] =
        0,    10,    20,    21,     6,     0,     4,     5,    22,    23,
        5,     8,     9,    24,    22,     4,    17,     6,     5,    12,
       13,    14,    16,    26,    27,     6,     6,     5,     8,     8,
-       8,     8,    11,    25,    26,     5,     5,    17,     3,    17,
-       3,    17,    17,    18,    28,    29,     6,     6,     8,     8,
-       8,     8,     6,     7,     5,     5,    15,    15,    15,    15,
-       5,    29,     8,     8,     8,     8,    17,    17,    17,    17,
-       6,     6,     6,     6,     5,     5,     5,     5
+       8,     8,    11,    25,    26,     5,     5,    17,    30,     3,
+      17,     3,    17,    17,    18,    28,    29,     6,     6,     7,
+       8,     8,     8,     8,     6,     7,     5,     5,     8,    15,
+      15,    15,    15,     5,    29,    30,     8,     8,     8,     8,
+      17,    17,    17,    17,     6,     6,     6,     6,     5,     5,
+       5,     5
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1423,13 +1430,13 @@ yyreduce:
     {
         case 3:
 /* Line 1792 of yacc.c  */
-#line 54 "parser.y"
+#line 58 "parser.y"
     {printf("Begining\n");}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 62 "parser.y"
+#line 66 "parser.y"
     {
         printf("String of name: ");
         printf((yyvsp[(3) - (5)].str));
@@ -1442,92 +1449,275 @@ yyreduce:
 	    flag = search((yyvsp[(3) - (5)].str));
 
 		if(flag == -1){
-			insert((yyvsp[(3) - (5)].str), (yyvsp[(1) - (5)].num), 0);
+			insertNameSize((yyvsp[(3) - (5)].str), (yyvsp[(1) - (5)].num));
 		}else{
 			t = "Identifier already defined - ";
-            printf(t);
+            yyerror(t);
 		}
     }
     break;
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 80 "parser.y"
+#line 84 "parser.y"
     { yyerror("    Variable name cannot be only 'x' or 'X'");}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 85 "parser.y"
+#line 89 "parser.y"
     {printf("BODY\n");}
     break;
 
   case 10:
 /* Line 1792 of yacc.c  */
-#line 89 "parser.y"
+#line 93 "parser.y"
     {printf("Program compiled successfully\n");}
     break;
 
   case 14:
 /* Line 1792 of yacc.c  */
-#line 96 "parser.y"
-    {printf("String = %d\n", (yyvsp[(3) - (5)].str));}
+#line 100 "parser.y"
+    {}
     break;
 
   case 15:
 /* Line 1792 of yacc.c  */
-#line 97 "parser.y"
-    {printf("String = %d\n", (yyvsp[(3) - (9)].str));}
+#line 101 "parser.y"
+    {
+
+
+        int flag;
+        int flag2;
+        char *t;
+        flag = search((yyvsp[(3) - (9)].str));
+        flag2 = search((yyvsp[(7) - (9)].str));
+
+        if(flag == -1 || flag2 == -1){
+            t = "ERROR : No variable found with that name ";
+            yyerror(t);
+        }else{
+
+            int numberToAdd = (int)tab[flag].value;
+            int variableLenght = (int)tab[flag2].size;
+
+            int valueOfVariable = (int)tab[flag2].value;
+
+            int temp = (int)valueOfVariable + (int)numberToAdd;
+
+            int lenght = 0;
+
+            lenght = intLen(temp);
+
+            if(lenght > variableLenght){
+                t = "ERROR : Variable doesn't have enough space assigned";
+                yyerror(t);
+            }else{
+                tab[flag].value = temp;
+                printTab();
+            }
+
+            
+        }
+
+    }
     break;
 
   case 16:
 /* Line 1792 of yacc.c  */
-#line 98 "parser.y"
-    {printf("String = %d\n", (yyvsp[(3) - (9)].num));}
+#line 138 "parser.y"
+    {
+
+
+        int flag;
+        char *t;
+        flag = search((yyvsp[(7) - (9)].str));
+
+        if(flag == -1){
+            t = "ERROR : No variable found with that name ";
+            yyerror(t);
+        }else{
+
+            int numberToAdd = (yyvsp[(3) - (9)].num);
+            int variableLenght = (int)tab[flag].size;
+
+            int valueOfVariable = (int)tab[flag].value;
+
+            int temp = (int)valueOfVariable + (int)numberToAdd;
+
+            int lenght = 0;
+
+            lenght = intLen(temp);
+
+            if(lenght > variableLenght){
+                t = "ERROR : Variable doesn't have enough space assigned";
+                yyerror(t);
+            }else{
+                tab[flag].value = temp;
+                printTab();
+            }
+
+            
+        }
+
+    }
     break;
 
   case 17:
 /* Line 1792 of yacc.c  */
-#line 99 "parser.y"
-    {printf("String = %d\n", (yyvsp[(3) - (9)].num));}
+#line 173 "parser.y"
+    {
+
+
+        int flag;
+        char *t;
+        flag = search((yyvsp[(7) - (9)].str));
+
+        if(flag == -1){
+            t = "ERROR : No variable found with that name ";
+            yyerror(t);
+        }else{
+
+            int numberToReplace = (yyvsp[(3) - (9)].num);
+            int variableLenght = (int)tab[flag].size;
+
+            int valueOfVariable = (int)tab[flag].value;
+
+            int temp = (int)numberToReplace;
+
+            int lenght = 0;
+
+            lenght = intLen(temp);
+
+            if(lenght > variableLenght){
+                t = "ERROR : Variable doesn't have enough space assigned";
+                yyerror(t);
+            }else{
+                tab[flag].value = temp;
+                printTab();
+            }
+
+            
+        }
+
+    }
     break;
 
   case 18:
 /* Line 1792 of yacc.c  */
-#line 100 "parser.y"
-    {printf("String = %d\n", (yyvsp[(3) - (9)].str));}
+#line 208 "parser.y"
+    {
+
+
+        int flag;
+        int flag2;
+        char *t;
+        flag = search((yyvsp[(3) - (9)].str));
+        flag2 = search((yyvsp[(7) - (9)].str));
+
+        if(flag == -1 || flag2 == -1){
+            t = "ERROR : No variable found with that name ";
+            printf(t);
+        }else{
+
+            int numberToReplace = (int)tab[flag].value;
+            int variableLenght = (int)tab[flag2].size;
+
+            int valueOfVariable = (int)tab[flag2].value;
+
+            int temp = (int)numberToReplace;
+
+            int lenght = 0;
+
+            lenght = intLen(temp);
+
+            if(lenght > variableLenght){
+                t = "ERROR : Variable doesn't have enough space assigned";
+                yyerror(t);
+            }else{
+                tab[flag2].value = temp;
+                printTab();
+            }
+
+            
+        }
+
+    }
     break;
 
   case 19:
 /* Line 1792 of yacc.c  */
-#line 101 "parser.y"
-    {printf("String = %d\n", (yyvsp[(3) - (5)].str));}
+#line 245 "parser.y"
+    {}
     break;
 
   case 21:
 /* Line 1792 of yacc.c  */
-#line 106 "parser.y"
+#line 250 "parser.y"
     { 
-        printf((yyvsp[(1) - (1)].str));
-        search((yyvsp[(1) - (1)].str));
+
+        int flag;
+		char *t;
+	    flag = search((yyvsp[(1) - (1)].str));
+
+		if(flag == -1){
+			t = "ERROR : No variable found with that name ";
+            yyerror(t);
+		}
+
+        if(tab[flag].value <= 0 || tab[flag].value > 0 ){
+            t = "ERROR : Variable doesn't have a value";
+            yyerror(t);
+        }
     }
     break;
 
   case 23:
 /* Line 1792 of yacc.c  */
-#line 114 "parser.y"
+#line 270 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (1)].str);}
     break;
 
   case 24:
 /* Line 1792 of yacc.c  */
-#line 115 "parser.y"
+#line 271 "parser.y"
     { (yyval.str) = (yyvsp[(1) - (3)].str);}
+    break;
+
+  case 25:
+/* Line 1792 of yacc.c  */
+#line 275 "parser.y"
+    { 
+
+        int flag;
+		char *t;
+	    flag = search((yyvsp[(1) - (1)].str));
+
+		if(flag == -1){
+			t = "ERROR : No variable found with that name ";
+            yyerror(t);
+		}else{
+            int testInteger;
+            printf("Enter an integer: ");
+            scanf("%d", &testInteger);  
+            printf("Number = %d",testInteger);
+        }
+
+        
+
+        
+    }
+    break;
+
+  case 26:
+/* Line 1792 of yacc.c  */
+#line 295 "parser.y"
+    { (yyval.str) = (yyvsp[(1) - (4)].str);}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1531 "parser.tab.c"
+#line 1721 "parser.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1759,7 +1949,7 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 119 "parser.y"
+#line 299 "parser.y"
 
 
 
@@ -1767,6 +1957,17 @@ int main() {
     yyparse();
 
     return 0;
+}
+
+int intLen(int x)
+{
+  if(!x) return 1;
+  int i;
+  for(i=0; x!=0; ++i)
+  {
+    x /= 10;
+  }
+  return i;
 }
 
 
@@ -1787,6 +1988,18 @@ int search(char name[]){
 
 }
 
+void insertNameSize(char name[], int size){
+
+	strcpy(tab[ptr].name, name);
+    tab[ptr].size = size;
+	
+
+	ptr++;
+
+    printTab();
+
+}
+
 void insert(char name[], int size, int value){
 
 	strcpy(tab[ptr].name, name);
@@ -1803,7 +2016,7 @@ void insert(char name[], int size, int value){
 
 void insertVal(int value, int posi){
 
-	strcpy(tab[posi].value, value);
+	tab[ptr].value = value;
 
     printTab();
 }
@@ -1815,7 +2028,7 @@ void printTab(){
 
 	for(i = 0; i < ptr; i++){
 
-	    printf("Name - %s, value - %d, size - %d sadad \n", tab[i].name, tab[i].value, tab[i].size);
+	    printf("Name - %s, value - %d, size - %d  \n", tab[i].name, tab[i].value, tab[i].size);
 	}
 }
 
@@ -1824,5 +2037,5 @@ void printTab(){
 void yyerror(char* s){
     printf("ERROR: %s\n", s);
 
-    return 0;
+    exit(0);
 }
