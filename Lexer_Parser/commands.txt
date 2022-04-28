@@ -94,3 +94,18 @@ numexp:
     int size[100] = {};
     char *name[100] = {};
     int i = 0;
+
+
+    ["][r'^[^ \n]*$']+["] { yylval.str = strdup(yytext); return STRING; }
+
+
+
+    void printTab(){
+
+	int i;
+
+	for(i = 0; i < ptr; i++){
+
+	    printf("Name - %s, value - %d, size - %d  \n", tab[i].name, tab[i].value, tab[i].size);
+	}
+}

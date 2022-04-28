@@ -25,11 +25,10 @@
 "print" { return PRINT; }
 "to" { return TO; }
 [xX]+ { yylval.num = strlen(yytext); return DECLARATION; }
-[0]+[1-9]+ { yylval.num = atoi(yytext); return NUMBER; }
-[1-9]+ { yylval.num = atoi(yytext); return NUMBER; }
+[0-9]+ { yylval.num = atoi(yytext); return NUMBER; printf("%d", atoi(yytext));}
 (?:;) { return SEMICOLON; }
 [.] { return DOT; }
-["][a-zA-Z0-9]+["] { yylval.str = strdup(yytext); return STRING; }
+["][^\n"]*["] { yylval.str = strdup(yytext); return STRING; }
 [a-zA-Z0-9-]+ { yylval.str = strdup(yytext); return VARNAME;}
 [ ] { return WHITESPACE;} /* Whitespace */
 [\n]  { return EOL; }

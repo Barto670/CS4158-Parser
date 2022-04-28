@@ -5,12 +5,11 @@
     #include <stdlib.h>
 
 
-    void insertVal(int value, int posi);
     int search(char name[]);
-    void insert(char name[], int size, int value);
-    void printTab();
+    void insertVar(char name[], int size, int value);
     int intLen(int x);
     void yyerror(char* s);
+    char* removeChar(char *str, char garbage);
     
 
     int ptr = 0;
@@ -46,6 +45,7 @@
 %type<str> variables
 %type<str> vardefs
 %type<str> begining
+%type<str> var
 
 %%
 /* rules  */
@@ -55,7 +55,7 @@ input:
 ;
 
 begining:
-    BEGINING DOT EOL {printf("Begining\n");}
+    BEGINING DOT EOL {}
 ;
 
 variables: | vardefs variables
@@ -64,9 +64,6 @@ variables: | vardefs variables
 
 vardefs :   
     DECLARATION WHITESPACE VARNAME DOT EOL {
-        printf("String of name: ");
-        printf($3);
-        printf("has lenght: %d\n", $1);
 
 
 
@@ -75,7 +72,7 @@ vardefs :
 	    flag = search($3);
 
 		if(flag == -1){
-			insertNameSize($3, $1);
+			insertVar($3, $1, 0);
 		}else{
 			t = "      ERROR: Identifier already defined ";
             yyerror(t);
@@ -86,7 +83,7 @@ vardefs :
 ;
 
 body:
-    BODY DOT EOL {printf("BODY\n");}
+    BODY DOT EOL {}
 ;
 
 end:
@@ -97,7 +94,7 @@ bodydef:  | bodycontent bodydef
 ;
 
 bodycontent: 
-|   PRINT WHITESPACE printcontent DOT EOL {}
+|   PRINT WHITESPACE printcontent DOT EOL { printf("\n");}
 |   ADD WHITESPACE VARNAME WHITESPACE TO WHITESPACE VARNAME DOT EOL {
 
 
@@ -128,7 +125,6 @@ bodycontent:
                 yyerror(t);
             }else{
                 tab[flag].value = temp;
-                printTab();
             }
 
             
@@ -163,7 +159,6 @@ bodycontent:
                 yyerror(t);
             }else{
                 tab[flag].value = temp;
-                printTab();
             }
 
             
@@ -198,7 +193,6 @@ bodycontent:
                 yyerror(t);
             }else{
                 tab[flag].value = temp;
-                printTab();
             }
 
             
@@ -216,7 +210,7 @@ bodycontent:
 
         if(flag == -1 || flag2 == -1){
             t = "ERROR : No variable found with that name ";
-            printf(t);
+            yyerror(t);
         }else{
 
             int numberToReplace = (int)tab[flag].value;
@@ -235,7 +229,6 @@ bodycontent:
                 yyerror(t);
             }else{
                 tab[flag2].value = temp;
-                printTab();
             }
 
             
@@ -253,17 +246,22 @@ strfiller:
 		char *t;
 	    flag = search($1);
 
+        int varValue = (int)tab[flag].value;
+
 		if(flag == -1){
 			t = "ERROR : No variable found with that name ";
             yyerror(t);
 		}
 
-        if(tab[flag].value <= 0 || tab[flag].value > 0 ){
-            t = "ERROR : Variable doesn't have a value";
-            yyerror(t);
-        }
+        printf("%d",varValue);
     }
-|   STRING
+|   STRING {
+
+    char *p = $1;
+    p++[strlen(p)] = 0;
+
+    printf(p); 
+}
 ;
 
 printcontent:
@@ -271,8 +269,7 @@ printcontent:
 |   printcontent SEMICOLON printcontent { $$ = $1;}
 
 
-inputcontent:
-    VARNAME { 
+var: VARNAME { 
 
         int flag;
 		char *t;
@@ -283,15 +280,17 @@ inputcontent:
             yyerror(t);
 		}else{
             int testInteger;
-            printf("Enter an integer: ");
             scanf("%d", &testInteger);  
-            printf("Number = %d",testInteger);
+
+            tab[flag].value = testInteger;
+
         }
 
-        
-
-        
     } 
+
+
+inputcontent:
+    var { $$ = $1;}
 |   inputcontent SEMICOLON WHITESPACE inputcontent { $$ = $1;}
 
 
@@ -334,19 +333,21 @@ int search(char name[]){
 
 }
 
-void insertNameSize(char name[], int size){
 
-	strcpy(tab[ptr].name, name);
-    tab[ptr].size = size;
-	
+char* removeChar(char *str, char garbage) {
 
-	ptr++;
+    char *src, *dst;
+    for (src = dst = str; *src != '\0'; src++) {
+        *dst = *src;
+        if (*dst != garbage) dst++;
+    }
+    *dst = '\0';
 
-    printTab();
-
+    return *dst;
 }
 
-void insert(char name[], int size, int value){
+
+void insertVar(char name[], int size, int value){
 
 	strcpy(tab[ptr].name, name);
 
@@ -356,26 +357,6 @@ void insert(char name[], int size, int value){
 
 	ptr++;
 
-    printTab();
-
-}
-
-void insertVal(int value, int posi){
-
-	tab[ptr].value = value;
-
-    printTab();
-}
-
-
-void printTab(){
-
-	int i;
-
-	for(i = 0; i < ptr; i++){
-
-	    printf("Name - %s, value - %d, size - %d  \n", tab[i].name, tab[i].value, tab[i].size);
-	}
 }
 
 
